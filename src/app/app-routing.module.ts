@@ -3,14 +3,67 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  /*
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
+  */
+  {
+    path: 'ordenes',
+    loadChildren: () => import('./ordenes/ordenes.module').then( m => m.OrdenesPageModule)
+  },
+  {
+    path: 'orden',
+    loadChildren: () => import('./orden/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'faltas',
+    loadChildren: () => import('./faltas/faltas.module').then( m => m.FaltasPageModule)
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'ordenes',
+    loadChildren: () => import('./ordenes/ordenes.module').then( m => m.OrdenesPageModule)
+  },
+  {
+    path: 'faltas',
+    loadChildren: () => import('./faltas/faltas.module').then( m => m.FaltasPageModule)
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
+  /*
+  {
+    path: 'tabs',
+    loadChildren: () => import('./orden/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'tab1',
+    loadChildren: () => import('./orden/tab1/tab1.module').then( m => m.Tab1PageModule)
+  },
+  {
+    path: 'tab2',
+    loadChildren: () => import('./orden/tab2/tab2.module').then( m => m.Tab2PageModule)
+  },
+  {
+    path: 'tab3',
+    loadChildren: () => import('./orden/tab3/tab3.module').then( m => m.Tab3PageModule)
+  },
+  */
+  
 ];
 
 @NgModule({
