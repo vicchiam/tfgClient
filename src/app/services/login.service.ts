@@ -19,8 +19,7 @@ export class LoginService {
   ) { }
 
   login(user: string, password: string): Promise<void>{
-    return new Promise((resolve, reject) =>{
-      console.log(user+" "+password);
+    return new Promise((resolve, reject) =>{      
       let url = this.rootUrl+'/login';
       this.http.post(url,{
         username: user,
@@ -33,6 +32,7 @@ export class LoginService {
           this.user = this.cloneUser(res.data.user);
           this.token = res.data.token;
           this.store.setData('user',this.user);
+          this.store.setData('token', this.token);
           resolve();
         },
         (err) => {
@@ -54,17 +54,20 @@ export class LoginService {
 
   getUser(): User{
     if(!this.user)
-      return this.cloneUser(this.store.getData('user'));
+      return this.cloneUser(this.store.getDataPermanent('user'));
     return this.user;
   }
 
   getToken(): string{
+    if(!this.token)
+      return this.store.getDataPermanent('token');
     return this.token;
   }
 
   cloneUser(user: any): User {
     return {
       id: parseInt(user.id),
+      centro_id: parseInt(user.centro_id),
       username: user.username,
       name: user.name,
       email: user.email,

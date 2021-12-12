@@ -8,6 +8,9 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+//Modals
+import { OrdenesFiltroPageModule } from './modals/ordenes-filtro/ordenes-filtro.module';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -15,7 +18,10 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+
+    //Modals
+    OrdenesFiltroPageModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

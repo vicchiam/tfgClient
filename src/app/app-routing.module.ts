@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   },
+  {
+    path: 'ordenes-filtro',
+    loadChildren: () => import('./modals/ordenes-filtro/ordenes-filtro.module').then( m => m.OrdenesFiltroPageModule)
+  },
   /*
   {
     path: 'tabs',
