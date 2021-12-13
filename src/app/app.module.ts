@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 //Modals
 import { OrdenesFiltroPageModule } from './modals/ordenes-filtro/ordenes-filtro.module';
 import { SeleccionarPageModule } from './modals/seleccionar/seleccionar.module';
+import { AnyadirTecnicosPageModule } from './modals/anyadir-tecnicos/anyadir-tecnicos.module';
+import { AnyadirProductosPageModule } from './modals/anyadir-productos/anyadir-productos.module';
+import { FaltasFiltroPageModule } from './modals/faltas-filtro/faltas-filtro.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +26,10 @@ import { SeleccionarPageModule } from './modals/seleccionar/seleccionar.module';
 
     //Modals
     OrdenesFiltroPageModule,
-    SeleccionarPageModule 
+    SeleccionarPageModule,
+    AnyadirTecnicosPageModule,
+    AnyadirProductosPageModule,
+    FaltasFiltroPageModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

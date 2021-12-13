@@ -15,20 +15,20 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>Solicitante</ion-label>
-      <ion-select [(ngModel)]="orden.solicitante_id" [disabled]="user.type==2">        
+      <ion-label position="floating">Solicitante</ion-label>
+      <ion-select [(ngModel)]="orden.solicitante_id" [disabled]="user.type==2" placeholder="Select One">        
         <ion-select-option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.name }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Centro</ion-label>
-      <ion-select [(ngModel)]="orden.centro_id" [disabled]="user.type==2">        
+      <ion-label position="floating">Centro</ion-label>
+      <ion-select [(ngModel)]="orden.centro_id" [disabled]="user.type==2" placeholder="Select One">        
         <ion-select-option *ngFor="let centro of centros" [value]="centro.id">{{ centro.nombre }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Tipo</ion-label>
-      <ion-select [(ngModel)]="orden.tipo">        
+      <ion-label position="floating">Tipo</ion-label>
+      <ion-select [(ngModel)]="orden.tipo" placeholder="Select One">        
         <ion-select-option [value]="1">Correctivo</ion-select-option>
         <ion-select-option [value]="2">Preventivo</ion-select-option>
         <ion-select-option [value]="3">Movimiento</ion-select-option>

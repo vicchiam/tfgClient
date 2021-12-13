@@ -22,8 +22,6 @@ import * as moment from 'moment';
 })
 export class OrdenesPage implements OnInit {
 
-  public force: boolean = false;
-
   public user: User;
   public filtro: any = {}; 
 
@@ -102,7 +100,7 @@ export class OrdenesPage implements OnInit {
       desde: moment().subtract(15,'days').format('YYYY-MM-DD'),
       hasta: moment().add(1,'days').format('YYYY-MM-DD'),
       centro: this.user.centro_id,
-      estado: '',       
+      estado: '-1',       
       usuario: ((this.user.type==2) ? this.user.id : 0),
       tipo: ''
     };    

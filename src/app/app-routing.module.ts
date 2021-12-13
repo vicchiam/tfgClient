@@ -53,6 +53,18 @@ const routes: Routes = [
     path: 'seleccionar',
     loadChildren: () => import('./modals/seleccionar/seleccionar.module').then( m => m.SeleccionarPageModule)
   },
+  {
+    path: 'anyadir-tecnicos',
+    loadChildren: () => import('./modals/anyadir-tecnicos/anyadir-tecnicos.module').then( m => m.AnyadirTecnicosPageModule)
+  },
+  {
+    path: 'anyadir-productos',
+    loadChildren: () => import('./modals/anyadir-productos/anyadir-productos.module').then( m => m.AnyadirProductosPageModule)
+  },
+  {
+    path: 'faltas-filtro',
+    loadChildren: () => import('./modals/faltas-filtro/faltas-filtro.module').then( m => m.FaltasFiltroPageModule)
+  },
   /*
   {
     path: 'tabs',

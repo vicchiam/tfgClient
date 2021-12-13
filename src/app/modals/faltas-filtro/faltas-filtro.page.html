@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="medium">
-    <ion-title>Filtro Ordenes</ion-title>
+    <ion-title>Filtro Faltas</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Aplicar</ion-button>
     </ion-buttons>
@@ -23,30 +23,7 @@
     <ion-item>
       <ion-label position="floating">Hasta</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="filtro.hasta"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Tipo</ion-label>
-      <ion-select [(ngModel)]="filtro.tipo" placeholder="Select One">
-        <ion-select-option value="">Todos</ion-select-option>        
-        <ion-select-option value="1">Correctivo</ion-select-option>
-        <ion-select-option value="2">Preventivo</ion-select-option>
-        <ion-select-option value="3">Movimeinto</ion-select-option>
-        <ion-select-option value="4">Mejora</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Estado</ion-label>
-      <ion-select [(ngModel)]="filtro.estado" placeholder="Select One">
-        <ion-select-option value="-1">Todos (Excepto Descartada)</ion-select-option>
-        <ion-select-option value="">Todos</ion-select-option>
-        <ion-select-option value="0">Pendiente</ion-select-option>
-        <ion-select-option value="1">Iniciada</ion-select-option>
-        <ion-select-option value="2">Finalizada</ion-select-option>
-        <ion-select-option value="3">Validada</ion-select-option>
-        <ion-select-option value="4">Rechazada</ion-select-option>
-        <ion-select-option value="99">Descartada</ion-select-option>
-      </ion-select>
-    </ion-item>
+    </ion-item>    
     <ion-item>
       <ion-label position="floating">Usuario</ion-label>
       <ion-select [(ngModel)]="filtro.usuario" [disabled]="user.type==2" placeholder="Select One">

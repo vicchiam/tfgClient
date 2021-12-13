@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()" >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>        
+    </ion-buttons>
+    <ion-title>Añadir Técnico</ion-title>        
+    <ion-buttons slot="end">
+      <ion-button (click)="delete()" >
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>    
+      <ion-button (click)="save()" >
+        <ion-icon name="save-outline" ></ion-icon>
+      </ion-button>        
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Técnico</ion-label>
+      <ion-select [(ngModel)]="tecnico_id" placeholder="Select one">
+        <ion-select-option *ngFor="let tecnico of tecnicos" [value]="tecnico.id">{{ tecnico.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fecha Inicio</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Minutos</ion-label>
+      <ion-input type="text" [(ngModel)]="minutos" ></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

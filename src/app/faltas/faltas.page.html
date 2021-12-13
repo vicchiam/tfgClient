@@ -31,17 +31,35 @@
 </ion-menu>
 
 <ion-header>
-  <ion-toolbar  color="primary">
+  <ion-toolbar color="primary">
       <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="showFiltro()">
+          <ion-icon name="filter-outline"  ></ion-icon>
+        </ion-button>        
+      </ion-buttons>
     <ion-title>Faltas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content id="listF">
-  <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button color="primary" routerLink="">
+  <ion-list>    
+    <ion-item *ngFor="let falta of faltas" (click)="editFalta(falta.id)">
+      <ion-avatar>
+        <div [attr.data-initials]="firstLetter(falta.user_nom)" ></div>
+      </ion-avatar>
+      <ion-label style="padding-left: 10px">
+        <h3 style="width: 60%; display: inline-block; ">{{ falta.user_nom }}</h3>
+        <h3 style="width: 38%; display: inline-block; text-align: right;">{{ falta.valor }}&euro;</h3><br />
+        <h5 style="color: gray; width: 60%; display: inline-block; ">Cantidad: {{ falta.productos }}</h5>
+        <h5 style="color: gray; width: 38%; display: inline-block; text-align: right;">{{ falta.fecha }}</h5>          
+      </ion-label>
+    </ion-item>          
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="addFalta()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

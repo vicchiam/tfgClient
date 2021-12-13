@@ -65,6 +65,10 @@ export class Tab1Page implements OnInit {
     this.loadOrden(id);    
   }
 
+  ionViewWillLeave(){
+    this.shareService.setFirstTab(this.orden);
+  }
+
   loadData(){    
     this.dataService.getUsuarios()
       .then ( (res) => {
@@ -184,8 +188,9 @@ export class Tab1Page implements OnInit {
         this.dataService.updateOrden(this.shareService.orden)
           .then( (res) =>{
             this.loading.dismiss();
+            console.log(res);
             if(res!=200)
-              this.showAlert(res);
+              this.showAlert(res.messages);
             else{
               this.showToast('Guardado correctamente');              
               this.events.publish('orden:reload', {})
@@ -193,7 +198,7 @@ export class Tab1Page implements OnInit {
             }
           })
           .catch( err => {
-            this.loading.dismiss()
+            this.loading.dismiss()            
             this.error(err);
           })
       });
@@ -231,8 +236,10 @@ export class Tab1Page implements OnInit {
       this.showAlert('La sesión ha expirado', () =>{
         this.logout();
       }); 
-    else
-      this.showAlert(err.message);    
+    else{
+      let error = err.message || err.messages; 
+      this.showAlert(error);    
+    }
   }
 
   showToast(msg: string){

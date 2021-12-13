@@ -4,9 +4,45 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/ordenes"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()" *ngIf="orden.estado!=util.DESCARTADA">
+        <ion-icon name="save-outline" ></ion-icon>
+      </ion-button>        
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-label>Cierre</ion-label>
+  <ion-list>
+    <ion-row>
+      <ion-col>
+        <ion-item>      
+          <ion-label position="floating">Fecha Inicio</ion-label>
+          <ion-input type="text" readonly [value]="getDateFormat(orden.fecha_inicio)"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>      
+          <ion-label position="floating">Fecha Fin</ion-label>
+          <ion-input type="text" readonly [value]="getDateFormat(orden.fecha_fin)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>  
+    <ion-item>      
+      <ion-label position="floating">Tiempo parada</ion-label>
+      <ion-input type="text" [(ngModel)]="orden.parada"></ion-input>
+    </ion-item>      
+    <ion-item style="margin-top: 15px;">
+      <ion-label position="floating">Trabajo realizado</ion-label>
+      <ion-textarea rows="10" [(ngModel)]="orden.trabajo"></ion-textarea>
+    </ion-item>
+    <ion-row>
+      <ion-col class="ion-text-center">          
+        <ion-button color="success" (click)="iniciar()" [disabled]="orden.estado!=util.PENDIENTE">Iniciar</ion-button>        
+      </ion-col>
+      <ion-col class="ion-text-center">        
+        <ion-button color="danger" (click)="finalizar()" [disabled]="orden.estado==util.PENDIENTE || orden.estado==util.DESCARTADA" >Finalizar</ion-button>
+      </ion-col>
+    </ion-row>    
+  </ion-list>
 </ion-content>

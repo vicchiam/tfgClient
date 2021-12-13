@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()" >
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>        
+    </ion-buttons>
+    <ion-title>Añadir Piezas</ion-title>        
+    <ion-buttons slot="end">
+      <ion-button (click)="delete()" >
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>    
+      <ion-button (click)="save()" >
+        <ion-icon name="save-outline" ></ion-icon>
+      </ion-button>        
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Pieza</ion-label>
+      <ion-input type="text" readonly (click)="seleccionarPieza()" [value]="producto_nom" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input type="text" [(ngModel)]="cantidad" ></ion-input>
+    </ion-item>
+    <ion-item-divider style="padding-top: 10px;">
+      <ion-label>Stock</ion-label>
+    </ion-item-divider>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Picassent</ion-label>
+          <ion-input type="text" [value]="obj.pica" ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Merca</ion-label>
+          <ion-input type="text" [value]="obj.merca" ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Teruel</ion-label>
+          <ion-input type="text" [value]="obj.teruel" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

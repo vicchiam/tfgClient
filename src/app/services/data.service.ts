@@ -351,8 +351,38 @@ export class DataService {
     }
   }
 
-  /********Tecnicos**************/
-  getTecnicos(id: number): Promise<any>{    
+  /*************Productos*************/
+  getProductos(): Promise<any>{
+    const header = this.getHeader();    
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/producto/list/invent';
+      this.http.get(url,header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages);    
+              let productos = res.data.map( (data) => this.cloneProducto(data) );            
+              resolve(productos);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    }); 
+  }
+
+  cloneProducto(data: any){
+    return {
+      id: parseInt(data.id),
+      nombre: data.descripcion,
+      pica: (data.picassent==null)?0:parseFloat(data.picassent),
+      merca: (data.merca==null)?0:parseFloat(data.merca),
+      teruel: (data.teruel==null)?0:parseFloat(data.teruel)
+    }
+  }
+
+  /********Tecnicos Orden**************/
+  getTecnicosOrden(id: number): Promise<any>{    
     const header = this.getHeader();    
     return new Promise((resolve, reject) =>{            
       let url = this.rootUrl+'/api/orden/tecnicos/list/'+id;
@@ -361,8 +391,8 @@ export class DataService {
           (res: any)  => {
             if(res.status==500)
               return reject(res.messages);    
-              let tecnicos = res.data.map( (data) => this.cloneTecnicos(data) );            
-              resolve(tecnicos);
+            let tecnicos = res.data.map( (data) => this.cloneTecnicos(data) );            
+            resolve(tecnicos);
           },
           (err) => {            
             reject(err);
@@ -380,5 +410,202 @@ export class DataService {
       minutos: parseInt(data.minutos)
     }
   }
+
+  addTecnico(orden_id: number, user_id:number, fecha: any, minutos:number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/tecnicos/add';
+      this.http.post(url,{
+        orden_id: orden_id,
+        user_id: user_id,
+        fecha: fecha,
+        minutos: minutos
+      },header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  updateTecnico(id: number, orden_id: number, user_id:number, fecha: any, minutos:number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/tecnicos/update/'+id;
+      this.http.put(url,{
+        orden_id: orden_id,
+        user_id: user_id,
+        fecha: fecha,
+        minutos: minutos
+      },header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  deleteTecnico(id: number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/tecnicos/delete/'+id;
+      this.http.delete(url,header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  /********Productos Orden*****************/
+  getProductosOrden(id: number): Promise<any>{    
+    const header = this.getHeader();    
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/productos/list/'+id;
+      this.http.get(url,header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages);    
+              let productos = res.data.map( (data) => this.cloneProductos(data) );            
+              resolve(productos);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });     
+  }
+
+  cloneProductos(data: any){
+    return {
+      id: parseInt(data.id),
+      nombre: data.descripcion,
+      producto_id: parseInt(data.producto_id),
+      cantidad: parseFloat(data.cantidad),
+      pica: (data.picassent==null)?0:parseFloat(data.picassent),
+      merca: (data.merca==null)?0:parseFloat(data.merca),
+      teruel: (data.teruel==null)?0:parseFloat(data.teruel)
+    }
+  }
+
+  addProducto(orden_id: number, producto_id:number, cantidad:number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/productos/add';
+      this.http.post(url,{
+        orden_id: orden_id,
+        producto_id: producto_id,
+        cantidad: cantidad
+      },header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  updateProducto(id: number, orden_id: number, producto_id:number, cantidad:number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/productos/update/'+id;
+      this.http.put(url,{
+        orden_id: orden_id,
+        producto_id: producto_id,
+        cantidad: cantidad
+      },header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  deleteProducto(id: number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/orden/productos/delete/'+id;
+      this.http.delete(url,header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  /************Faltas*************/
+  getFaltas(filtro: any): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/falta/filter';
+      this.http.post(url,{
+        desde: filtro.desde,
+        hasta: filtro.hasta,
+        centro: filtro.centro,        
+        usuario: ((filtro.usuario==0) ? '' : filtro.usuario)
+      },header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            let faltas = res.data.map( (data) => this.cloneFaltasItem(data) );            
+            resolve(faltas);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  cloneFaltasItem(data: any){
+    return {
+      id : parseInt(data.id),
+      user_id: parseInt(data.solicitante_id),
+      user_nom: data.user_nom,
+      centro_id: parseInt(data.centro_id),
+      centro_nom: data.centro_nom,
+      fecha: moment(data.created_at).format('DD/MM/YYYY'),
+      productos: (data.productos)?parseFloat(data.productos):0,
+      valor: (data.valor)?parseFloat(data.valor):0,
+    }
+  }
+
 
 }

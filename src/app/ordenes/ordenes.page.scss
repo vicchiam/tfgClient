@@ -14,18 +14,22 @@
     text-align: center; 
 }
 
+.propia:before {
+    background-color: steelblue;
+}
+
+.finalizada:before {
+    background-color: orange;
+}
+
 .descartada:before {
     background-color: #ccc;
 }
 
 .validada:before{
-    background-color: green;
+    background-color: mediumseagreen;
 }
 
 .rechazada:before{
-    background-color: red;
-}
-
-.own{
-    color: steelblue;
+    background-color: tomato;
 }

@@ -22,8 +22,10 @@ export class TabsPage implements OnInit {
     private shareService: SharingOrdenService
   ) { 
     this.route.queryParams.subscribe( params => {
-      this.id = this.router.getCurrentNavigation().extras.state.id;  
-      this.shareService.id = this.id;
+      if(this.router.getCurrentNavigation().extras.state){
+        this.id = this.router.getCurrentNavigation().extras.state.id;  
+        this.shareService.id = this.id;
+      }
     })
   }
 

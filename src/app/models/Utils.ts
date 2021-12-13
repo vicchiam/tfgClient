@@ -21,4 +21,5 @@ export class Utils{
     public UBICACION: number = 1000;
     public MAQUINA: number = 1001;
     public INSTALACION: number = 1002;
+    public PRODUCTO: number = 1003;
 }

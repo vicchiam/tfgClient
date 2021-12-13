@@ -46,7 +46,9 @@ export class SeleccionarPage implements OnInit {
     else if(this.tipo == this.util.MAQUINA)
       this.loadMaquinas();
     else if(this.tipo == this.util.INSTALACION)
-      this.loadInstalacion();
+      this.loadInstalaciones();
+    else if(this.tipo == this.util.PRODUCTO)
+      this.loadProductos();
   }
 
   loadUbicaciones(){
@@ -79,9 +81,24 @@ export class SeleccionarPage implements OnInit {
     });
   }
 
-  loadInstalacion(){
+  loadInstalaciones(){
     this.showLoading( cb =>{
       this.dataService.getInstalaciones(this.params.centro_id)
+        .then( (res) => {
+          this.loading.dismiss(); 
+          this.data = res;
+          this.filterData = Object.assign([], this.data);
+        })
+        .catch( (err) => {       
+          this.loading.dismiss(); 
+          this.error(err);       
+        })
+    });
+  }
+
+  loadProductos(){
+    this.showLoading( cb =>{
+      this.dataService.getProductos()
         .then( (res) => {
           this.loading.dismiss(); 
           this.data = res;
@@ -103,10 +120,10 @@ export class SeleccionarPage implements OnInit {
   }
 
   seleccionar(data: any){    
-    this.dismissModal(this.tipo, data.id, data.nombre);
+    this.dismissModal(this.tipo, data.id, data.nombre, data);
   }
 
-  onCancel(){
+  cancelar(){
     this.dismissModal(this.util.CANCELAR, 0, '');
   }
 
@@ -114,12 +131,13 @@ export class SeleccionarPage implements OnInit {
     this.dismissModal(this.tipo, 0, '');
   }
 
-  dismissModal(tipo: number, id: number, nombre: string){
+  dismissModal(tipo: number, id: number, nombre: string, obj: any = null){
     this.modal.dismiss({
       res: {
         tipo: tipo,
         id: id,
-        nombre: nombre
+        nombre: nombre,
+        obj : obj
       }
     })
   }

@@ -34,7 +34,14 @@ export class SharingOrdenService {
       this.orden.instalacion_nom = data.instalacion_nom;
     }
     this.orden.averia = data.averia;
-    this.orden.estado = this.util.PENDIENTE;
+    this.orden.estado = ( (data.estado)?data.estado: this.util.PENDIENTE );
+  }
+
+  setLastTab(data: Orden){
+    this.orden.fecha_inicio = data.fecha_inicio;
+    this.orden.fecha_fin = data.fecha_fin;
+    this.orden.parada = data.parada;
+    this.orden.trabajo = data.trabajo;
   }
 
 }

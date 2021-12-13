@@ -11,22 +11,35 @@
   <ion-list>
     <ion-list-header>
       <ion-label>Técnicos</ion-label>
-      <ion-button>
+      <ion-button (click)="addTecnicos()">
         <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>      
-    </ion-list-header>
-    <ion-item *ngFor="let tecnico of tecnicos" style="font-size: 0.75rem;">
-      <ion-label>{{ tecnico.nombre }}</ion-label>
-      <ion-label>{{ tecnico.fecha }}</ion-label>
+    </ion-list-header>    
+    <ion-item-divider style="font-size: 0.75rem; padding-right: 10px;">
+      <ion-label style="width: 50%;">Nombre</ion-label>
+      <ion-label>Inicio</ion-label>
+      <ion-label slot="end">Minutos</ion-label>
+    </ion-item-divider>    
+    <ion-item *ngFor="let tecnico of tecnicos" (click)="editTecnico(tecnico)">
+      <ion-label style="min-width: 50%;">{{ tecnico.nombre }}</ion-label>
+      <ion-label>{{ getDateFormat(tecnico.fecha) }}</ion-label>
       <ion-label slot="end">{{ tecnico.minutos }}</ion-label>
-    </ion-item>
+    </ion-item>    
   </ion-list>
   <ion-list>
     <ion-list-header>
       <ion-label>Piezas</ion-label>
-      <ion-button>
+      <ion-button (click)="addProducto()">
         <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>      
     </ion-list-header>
+    <ion-item-divider style="font-size: 0.75rem; padding-right: 10px;">
+      <ion-label>Nombre</ion-label>      
+      <ion-label slot="end">Cantidad</ion-label>
+    </ion-item-divider>
+    <ion-item *ngFor="let producto of productos" (click)="editProducto(producto)">
+      <ion-label style="min-width: 50%;">{{ producto.nombre }}</ion-label>      
+      <ion-label slot="end">{{ producto.cantidad }}</ion-label>
+    </ion-item>   
   </ion-list>
 </ion-content>

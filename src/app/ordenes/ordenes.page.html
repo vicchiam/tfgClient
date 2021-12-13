@@ -49,10 +49,10 @@
     <ion-item-sliding #slidingItem *ngFor="let orden of ordenes">
       <ion-item (click)="editOrden(orden.id)">
         <ion-avatar>
-          <div [attr.data-initials]="orden.tipo" [class]="{ 'validada': orden.estado==util.VALIDADA, 'rechazada': orden.estado==util.RECHAZADA, 'descartada': orden.estado==util.DESCARTADA }"></div>
+          <div [attr.data-initials]="orden.tipo" [class]="{ 'propia': orden.solicitante == user.id, 'finalizada': orden.solicitante == user.id && orden.estado==util.FINALIZADA, 'validada': orden.solicitante == user.id && orden.estado==util.VALIDADA, 'rechazada': orden.solicitante == user.id && orden.estado==util.RECHAZADA, 'descartada': orden.estado==util.DESCARTADA }"></div>
         </ion-avatar>
         <ion-label style="padding-left: 10px">
-          <h3 [class]="{ 'own': orden.solicitante == user.id }">{{ orden.averia }}</h3>
+          <h3>{{ orden.averia }}</h3>
           <h5 style="color: gray; width: 60%; display: inline-block; ">{{ orden.estado_nom }}</h5>
           <h5 style="color: gray; width: 38%; display: inline-block; text-align: right;">{{ orden.fecha }}</h5>          
         </ion-label>
