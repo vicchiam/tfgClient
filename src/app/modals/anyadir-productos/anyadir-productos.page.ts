@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { Router } from '@angular/router';
 
 import { LoadingController, ToastController } from '@ionic/angular';
@@ -96,7 +95,7 @@ export class AnyadirProductosPage implements OnInit {
         {
           text: 'Eliminar',
           handler: () => {
-            this.dataService.deleteProducto(this.id)
+            this.dataService.deleteProductoOrden(this.id)
               .then( (res) =>{
                 if(res.status!=200)
                   return this.showAlert(res.messages);            
@@ -128,7 +127,7 @@ export class AnyadirProductosPage implements OnInit {
 
       this.showLoading( cb =>{
         if(this.id == 0)
-          this.dataService.addProducto(this.orden_id, this.producto_id, this.cantidad)
+          this.dataService.addProductoOrden(this.orden_id, this.producto_id, this.cantidad)
             .then((res) =>{
               this.loading.dismiss();            
               if(res.status!=200)
@@ -141,7 +140,7 @@ export class AnyadirProductosPage implements OnInit {
               this.error(err);
             })
         else
-            this.dataService.updateProducto( this.id, this.orden_id, this.producto_id, this.cantidad)
+            this.dataService.updateProductoOrden( this.id, this.orden_id, this.producto_id, this.cantidad)
             .then((res) =>{
               this.loading.dismiss();            
               if(res.status!=200)

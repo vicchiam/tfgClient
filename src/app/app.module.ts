@@ -14,6 +14,7 @@ import { SeleccionarPageModule } from './modals/seleccionar/seleccionar.module';
 import { AnyadirTecnicosPageModule } from './modals/anyadir-tecnicos/anyadir-tecnicos.module';
 import { AnyadirProductosPageModule } from './modals/anyadir-productos/anyadir-productos.module';
 import { FaltasFiltroPageModule } from './modals/faltas-filtro/faltas-filtro.module';
+import { FaltaProductosPageModule } from './modals/falta-productos/falta-productos.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { FaltasFiltroPageModule } from './modals/faltas-filtro/faltas-filtro.mod
     SeleccionarPageModule,
     AnyadirTecnicosPageModule,
     AnyadirProductosPageModule,
-    FaltasFiltroPageModule
+    FaltasFiltroPageModule,
+    FaltaProductosPageModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -377,7 +377,10 @@ export class DataService {
       nombre: data.descripcion,
       pica: (data.picassent==null)?0:parseFloat(data.picassent),
       merca: (data.merca==null)?0:parseFloat(data.merca),
-      teruel: (data.teruel==null)?0:parseFloat(data.teruel)
+      teruel: (data.teruel==null)?0:parseFloat(data.teruel),
+      vpica: (data.vpicassent==null)?0:parseFloat(data.vpicassent),
+      vmerca: (data.vmerca==null)?0:parseFloat(data.vmerca),
+      vteruel: (data.vteruel==null)?0:parseFloat(data.vteruel) 
     }
   }
 
@@ -485,7 +488,7 @@ export class DataService {
           (res: any)  => {
             if(res.status==500)
               return reject(res.messages);    
-              let productos = res.data.map( (data) => this.cloneProductos(data) );            
+              let productos = res.data.map( (data) => this.cloneProductosOrden(data) );            
               resolve(productos);
           },
           (err) => {            
@@ -495,7 +498,7 @@ export class DataService {
     });     
   }
 
-  cloneProductos(data: any){
+  cloneProductosOrden(data: any){
     return {
       id: parseInt(data.id),
       nombre: data.descripcion,
@@ -507,7 +510,7 @@ export class DataService {
     }
   }
 
-  addProducto(orden_id: number, producto_id:number, cantidad:number): Promise<any>{
+  addProductoOrden(orden_id: number, producto_id:number, cantidad:number): Promise<any>{
     const header = this.getHeader();
     return new Promise((resolve, reject) =>{            
       let url = this.rootUrl+'/api/orden/productos/add';
@@ -529,7 +532,7 @@ export class DataService {
     });
   }
 
-  updateProducto(id: number, orden_id: number, producto_id:number, cantidad:number): Promise<any>{
+  updateProductoOrden(id: number, orden_id: number, producto_id:number, cantidad:number): Promise<any>{
     const header = this.getHeader();
     return new Promise((resolve, reject) =>{            
       let url = this.rootUrl+'/api/orden/productos/update/'+id;
@@ -551,7 +554,7 @@ export class DataService {
     });
   }
 
-  deleteProducto(id: number): Promise<any>{
+  deleteProductoOrden(id: number): Promise<any>{
     const header = this.getHeader();
     return new Promise((resolve, reject) =>{            
       let url = this.rootUrl+'/api/orden/productos/delete/'+id;
@@ -607,5 +610,99 @@ export class DataService {
     }
   }
 
+  getFalta(id: number): Promise<any>{
+    const header = this.getHeader();    
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/falta/single/'+id;
+      this.http.get(url,header)
+        .subscribe(
+          (res: any)  => {            
+            if(res.status==500)
+              return reject(res.messages);    
+              let falta = {
+                id: parseInt(res.data.id),
+                solicitante_id: parseInt(res.data.solicitante_id),
+                centro_id: parseInt(res.data.centro_id)
+              }
+              resolve(falta);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });   
+  }
+
+  getProductosFalta(id: number): Promise<any>{
+    const header = this.getHeader();    
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/falta/producto/list/'+id;
+      this.http.get(url,header)
+        .subscribe(
+          (res: any)  => {            
+            if(res.status==500)
+              return reject(res.messages);    
+              let productos = res.data.map( (data) => this.cloneProductosFalta(data) ); 
+              resolve(productos);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });  
+  }
+
+  cloneProductosFalta(data: any){
+    return {
+      id: parseInt(data.id),
+      nombre: data.descripcion,
+      producto_id: parseInt(data.producto_id),
+      cantidad: parseFloat(data.cantidad),
+      valor: (data.valor==null)?0:parseFloat(data.valor),
+      pica: (data.picassent==null)?0:parseFloat(data.picassent),
+      merca: (data.merca==null)?0:parseFloat(data.merca),
+      teruel: (data.teruel==null)?0:parseFloat(data.teruel),
+      vpica: (data.vpicassent==null)?0:parseFloat(data.vpicassent),
+      vmerca: (data.vmerca==null)?0:parseFloat(data.vmerca),
+      vteruel: (data.vteruel==null)?0:parseFloat(data.vteruel)   
+    }
+  }
+
+  saveFalta(falta: any): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/falta/save';
+      this.http.post(url,JSON.stringify(falta),header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+  }
+
+  deleteFalta(id: number): Promise<any>{
+    const header = this.getHeader();
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/falta/delete/'+id;
+      this.http.delete(url,header)
+        .subscribe(
+          (res: any)  => {
+            if(res.status==500)
+              return reject(res.messages); 
+            resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });
+    
+  }
 
 }

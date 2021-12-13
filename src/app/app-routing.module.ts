@@ -65,6 +65,14 @@ const routes: Routes = [
     path: 'faltas-filtro',
     loadChildren: () => import('./modals/faltas-filtro/faltas-filtro.module').then( m => m.FaltasFiltroPageModule)
   },
+  {
+    path: 'falta',
+    loadChildren: () => import('./falta/falta.module').then( m => m.FaltaPageModule)
+  },
+  {
+    path: 'falta-productos',
+    loadChildren: () => import('./modals/falta-productos/falta-productos.module').then( m => m.FaltaProductosPageModule)
+  },
   /*
   {
     path: 'tabs',

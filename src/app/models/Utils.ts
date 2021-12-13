@@ -22,4 +22,8 @@ export class Utils{
     public MAQUINA: number = 1001;
     public INSTALACION: number = 1002;
     public PRODUCTO: number = 1003;
+
+    public ANYADIR: number = 2001;
+    public ACTUALIZAR: number = 2002;
+    public ELIMINAR: number = 2003;    
 }
