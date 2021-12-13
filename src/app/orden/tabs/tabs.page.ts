@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/models/user';
+import { SharingOrdenService } from 'src/app/services/sharing-orden.service';
 
 @Component({
   selector: 'app-tabs',
@@ -11,19 +12,23 @@ import { User } from 'src/app/models/user';
 })
 export class TabsPage implements OnInit {
 
+  public id: number;
   public user: User;
 
   constructor(
-    private lService: LoginService,
-    private router: Router,
-  ) { }
-
-  ngOnInit() {
-    this.user=this.lService.getUser();    
+    private loginService: LoginService,
+    private route: ActivatedRoute,
+    private router: Router,    
+    private shareService: SharingOrdenService
+  ) { 
+    this.route.queryParams.subscribe( params => {
+      this.id = this.router.getCurrentNavigation().extras.state.id;  
+      this.shareService.id = this.id;
+    })
   }
 
-  
-
-
+  ngOnInit() {
+    this.user = this.loginService.getUser();
+  }
 
 }

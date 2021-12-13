@@ -4,46 +4,68 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/ordenes"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()" *ngIf="orden.estado!=util.DESCARTADA">
+        <ion-icon name="save-outline" ></ion-icon>
+      </ion-button>        
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list style="padding: 0 20px;">
+  <ion-list>
     <ion-item>
-      <ion-label position="floating">Solicitante</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-label>Solicitante</ion-label>
+      <ion-select [(ngModel)]="orden.solicitante_id" [disabled]="user.type==2">        
+        <ion-select-option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.name }}</ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-radio-group>
+    <ion-item>
+      <ion-label>Centro</ion-label>
+      <ion-select [(ngModel)]="orden.centro_id" [disabled]="user.type==2">        
+        <ion-select-option *ngFor="let centro of centros" [value]="centro.id">{{ centro.nombre }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo</ion-label>
+      <ion-select [(ngModel)]="orden.tipo">        
+        <ion-select-option [value]="1">Correctivo</ion-select-option>
+        <ion-select-option [value]="2">Preventivo</ion-select-option>
+        <ion-select-option [value]="3">Movimiento</ion-select-option>
+        <ion-select-option [value]="4">Mejora</ion-select-option>        
+      </ion-select>
+    </ion-item>
+    <ion-item style="margin-top: 15px;">
+      <ion-label position="floating">Ubicación</ion-label>
+      <ion-input type="text" [value]="orden.ubicacion_nom" readonly (click)="seleccionarUbicacion()"></ion-input>
+    </ion-item>
+    <ion-radio-group [(ngModel)]="orden.maq_inst">
       <ion-row style="margin-top: 15px;">
         <ion-col>
           <ion-item>
             <ion-label>Máquina</ion-label>
-            <ion-radio></ion-radio>
+            <ion-radio [value]="1" ></ion-radio>
           </ion-item>  
         </ion-col>
         <ion-col>
           <ion-item>
             <ion-label>Instalación</ion-label>
-            <ion-radio></ion-radio>
+            <ion-radio [value]="2" ></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-radio-group>
-    <ion-item style="margin-top: 15px;">
+    <ion-item style="margin-top: 15px;" *ngIf="orden.maq_inst==1">
       <ion-label position="floating">Máquina</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [value]="orden.maquina_nom" readonly (click)="seleccionarMaquina()"></ion-input>
     </ion-item>
-    <ion-item style="margin-top: 15px;">
+    <ion-item style="margin-top: 15px;" *ngIf="orden.maq_inst==2">
       <ion-label position="floating">Instalación</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item style="margin-top: 15px;">
-      <ion-label position="floating">Ubicación</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
+      <ion-input type="text" [value]="orden.instalacion_nom" readonly (click)="seleccionarInstalacion()"></ion-input>
+    </ion-item>    
     <ion-item style="margin-top: 15px;">
       <ion-label position="floating">Averia</ion-label>
-      <ion-textarea rows="10"></ion-textarea>
+      <ion-textarea rows="10" [(ngModel)]="orden.averia"></ion-textarea>
     </ion-item>
   </ion-list> 
 </ion-content>

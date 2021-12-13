@@ -6,8 +6,6 @@ import { DataService } from 'src/app/services/data.service';
 
 import { User } from 'src/app/models/user';
 
-import * as moment from 'moment';
-
 @Component({
   selector: 'app-ordenes-filtro',
   templateUrl: './ordenes-filtro.page.html',

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DataService } from 'src/app/services/data.service';
+import { SharingOrdenService } from 'src/app/services/sharing-orden.service';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: './tab2.page.html',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab2Page implements OnInit {
 
-  constructor() { }
+  public tecnicos: Array<any> = [];
+
+  constructor(
+    private shareService: SharingOrdenService,
+    private dataService: DataService,
+  ) { 
+    
+  }
 
   ngOnInit() {
+    this.dataService.getTecnicos(this.shareService.id)
+      .then( (res) => {
+        this.tecnicos = res;
+      })
+      .catch( (err) => {
+        
+      })
   }
 
 }

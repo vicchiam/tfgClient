@@ -49,6 +49,10 @@ const routes: Routes = [
     path: 'ordenes-filtro',
     loadChildren: () => import('./modals/ordenes-filtro/ordenes-filtro.module').then( m => m.OrdenesFiltroPageModule)
   },
+  {
+    path: 'seleccionar',
+    loadChildren: () => import('./modals/seleccionar/seleccionar.module').then( m => m.SeleccionarPageModule)
+  },
   /*
   {
     path: 'tabs',

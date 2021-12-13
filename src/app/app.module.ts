@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 //Modals
 import { OrdenesFiltroPageModule } from './modals/ordenes-filtro/ordenes-filtro.module';
+import { SeleccionarPageModule } from './modals/seleccionar/seleccionar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { OrdenesFiltroPageModule } from './modals/ordenes-filtro/ordenes-filtro.
     HttpClientModule,
 
     //Modals
-    OrdenesFiltroPageModule
+    OrdenesFiltroPageModule,
+    SeleccionarPageModule 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

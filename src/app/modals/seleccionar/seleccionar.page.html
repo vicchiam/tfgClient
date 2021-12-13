@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-title>Seleccionar</ion-title>    
+    <ion-buttons slot="end">
+      <ion-button (click)="limpiar()">Limpiar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-list>
+    <ion-item-divider sticky style="padding-left: 2px;">
+      <ion-searchbar [(ngModel)]="key" (ionInput)="setFilter($event)" (ionCancel)="onCancel($event)" showCancelButton="always"></ion-searchbar>
+    </ion-item-divider>
+    <ion-item *ngFor="let data of filterData" (click)="seleccionar(data)">
+      <h5>{{ data.nombre }}</h5>
+    </ion-item>
+  </ion-list>
+</ion-content>
