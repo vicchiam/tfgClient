@@ -52,7 +52,7 @@ export class Tab1Page implements OnInit {
       id: 0,
       tipo: this.util.CORRECTIVO,
       solicitante_id: this.user.id,
-      centro_id: 1,
+      centro_id: this.user.centro_id,
       ubicacion_id: 0,
       maq_inst: 1,
       maquina_id: null,

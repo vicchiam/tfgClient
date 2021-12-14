@@ -7,7 +7,7 @@
   <ion-content>
     <ion-list>
       <ion-item>
-        {{ user.username }} - {{ getTipoUsuario() }}
+        {{ user.username }} - {{ getTipoUsuario() }}/{{ getCentro() }}
       </ion-item>      
       <ion-item (click)="go('/ordenes')">
         <ion-label>Ordenes</ion-label>    
@@ -39,5 +39,46 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="listI">
+<ion-content id="listI" padding>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Información de los últimos 30 dias</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label >Ordenes pendientes:</ion-label>
+      <ion-text color="primary">
+        <h4>{{ info[0] }}</h4>
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Ordenes realizadas:</ion-label>
+      <ion-text color="primary">
+        <h4>{{ info[1] }}</h4>
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Minutos utilizados:</ion-label>
+      <ion-text color="primary">
+        <h4>{{ info[2] }}</h4>
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Piezas utilizados:</ion-label>
+      <ion-text color="primary">
+        <h4>{{ info[3] }}</h4>
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Valor de las piezas utilizados:</ion-label>
+      <ion-text color="primary">
+        <h4>{{ info[4] }}&euro;</h4>
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label >Valor de las piezas solicitadas:</ion-label>
+      <ion-text color="primary">
+        <h4>{{ info[5] }}&euro;</h4>
+      </ion-text>
+    </ion-item>
+  </ion-list>
 </ion-content>

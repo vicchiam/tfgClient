@@ -705,4 +705,22 @@ export class DataService {
     
   }
 
+  getInfo(user_id: number): Promise<any>{
+    const header = this.getHeader();    
+    return new Promise((resolve, reject) =>{            
+      let url = this.rootUrl+'/api/info/single/'+user_id;
+      this.http.get(url,header)
+        .subscribe(
+          (res: any)  => {            
+            if(res.status==500)
+              return reject(res.messages);                  
+              resolve(res);
+          },
+          (err) => {            
+            reject(err);
+          }
+        );
+    });  
+  }
+
 }
