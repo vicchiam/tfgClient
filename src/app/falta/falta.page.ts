@@ -46,22 +46,24 @@ export class FaltaPage implements OnInit {
     public util: Utils,
     private events: EventsService
   ) { 
-    this.route.queryParams.subscribe( params => {
-      if(this.router.getCurrentNavigation().extras.state){
-        this.id = this.router.getCurrentNavigation().extras.state.id;
-      }
-    })
+    if(this.route && this.route.queryParams){
+      this.route.queryParams.subscribe( params => {
+        if(this.router.getCurrentNavigation().extras.state){
+          this.id = this.router.getCurrentNavigation().extras.state.id;
+        }
+      })
+    }
   }
 
   ngOnInit() {
     this.user = this.dataService.getUser();
-    this.emptyFalta();
+    this.falta = this.emptyFalta();
     this.loadData();
     this.loadFalta();
   }
 
   emptyFalta(){
-    this.falta = {
+    return {
       id: this.id,
       solicitante_id: this.user.id,
       centro_id: 1     
@@ -155,17 +157,22 @@ export class FaltaPage implements OnInit {
     }
   }
 
+  checkSave(falta){
+    if(falta.solicitante_id==0)
+      return 'Debes indicar un solicitante';
+    if(falta.centro_id==0)
+      return 'Debes indicar un centro';
+    if(falta.productos.length==0)
+      return 'Debes indicar al menos 1 producto';
+    return true;
+  }
+
   save(){
-    console.log(this.falta);
-
-    if(this.falta.solicitante_id==0)
-      return this.showAlert('Debes indicar un solicitante');
-    if(this.falta.centro_id==0)
-      return this.showAlert('Debes indicar un centro');
-    if(this.productos.length==0)
-      return this.showAlert('Debes indicar al menos 1 producto');
-
     this.falta.productos = this.productos;
+
+    let resCheck = this.checkSave(this.falta);
+    if(resCheck!==true)
+      return this.showAlert(resCheck);    
 
     this.dataService.saveFalta(this.falta)
       .then( (res)=>{

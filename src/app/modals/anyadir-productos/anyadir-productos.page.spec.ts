@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { AnyadirProductosPage } from './anyadir-productos.page';
 
+/*
 describe('AnyadirProductosPage', () => {
   let component: AnyadirProductosPage;
   let fixture: ComponentFixture<AnyadirProductosPage>;
@@ -22,3 +23,4 @@ describe('AnyadirProductosPage', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

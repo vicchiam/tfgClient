@@ -36,7 +36,7 @@ export class Tab1Page implements OnInit {
     private dataService: DataService,
     private alert: AlertController,
     public shareService: SharingOrdenService,
-    private util: Utils,
+    public util: Utils,
     private modal: ModalController,
     private toast: ToastController,
     private events: EventsService
@@ -48,7 +48,15 @@ export class Tab1Page implements OnInit {
     this.user = this.dataService.getUser();
     this.loadData();
     
-    this.orden = {
+    this.orden = this.emptyOrden();
+    this.shareService.orden = this.orden;
+
+    let id =  this.shareService.id;          
+    this.loadOrden(id);    
+  }
+
+  emptyOrden(){
+    return {
       id: 0,
       tipo: this.util.CORRECTIVO,
       solicitante_id: this.user.id,
@@ -59,10 +67,6 @@ export class Tab1Page implements OnInit {
       instalacion_id: null,
       averia: ''
     }      
-    this.shareService.orden = this.orden;
-
-    let id =  this.shareService.id;          
-    this.loadOrden(id);    
   }
 
   ionViewWillLeave(){
@@ -148,47 +152,48 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  save(){
-    if(this.orden.solicitante_id==0)
-      return this.showAlert('Debes indicar un solicitante');
-    if(this.orden.centro_id==0)
-      return this.showAlert('Debes indicar un centro');
-    if(this.orden.ubicacion_id==0)
-      return this.showAlert('Debes indicar una ubicación');
-    if(this.orden.maq_inst==1 && (this.orden.maquina_id==0 || this.orden.maquina_id==null) )
-      return this.showAlert('Debes indicar una máquina');
-    if(this.orden.maq_inst==2 && (this.orden.instalacion_id==0 || this.orden.instalacion_id==null) )
-      return this.showAlert('Debes indicar una instalación');
-    if(this.orden.averia.length==0)
-      return this.showAlert('Debes indicar una averia');    
+  checkSave(orden){
+    if(orden.solicitante_id==0)
+      return 'Debes indicar un solicitante';
+    if(orden.centro_id==0)
+      return 'Debes indicar un centro';
+    if(orden.ubicacion_id==0)
+      return 'Debes indicar una ubicación';
+    if(orden.maq_inst==1 && (orden.maquina_id==0 || orden.maquina_id==null) )
+      return 'Debes indicar una máquina';
+    if(orden.maq_inst==2 && (orden.instalacion_id==0 || orden.instalacion_id==null) )
+      return 'Debes indicar una instalación';
+    if(orden.averia.length==0)
+      return 'Debes indicar una averia';
+    return true;    
+  }
 
+  save(){
+    let resCheck = this.checkSave(this.orden);
+    if(resCheck!==true)
+      return this.showAlert(resCheck);
+    
     this.shareService.setFirstTab(this.orden);
 
     if(this.orden.id == 0){
-      this.showLoading( cb =>{
-        this.dataService.createOrden(this.shareService.orden)
-          .then( (res) =>{
-            this.loading.dismiss();
-            if(res!=200)
-              this.showAlert(res);
-            else{
-              this.showToast('Guardado correctamente');              
-              this.events.publish('orden:reload', {})
-              this.router.navigateByUrl('/ordenes', {replaceUrl : true});
-            }
-          })
-          .catch( err => {
-            this.loading.dismiss()
-            this.error(err);
-          })
-      });
+      this.dataService.createOrden(this.shareService.orden)
+        .then( (res) =>{
+          
+          if(res!=200)
+            this.showAlert(res);
+          else{
+            this.showToast('Guardado correctamente');              
+            this.events.publish('orden:reload', {})
+            this.router.navigateByUrl('/ordenes', {replaceUrl : true});
+          }
+        })
+        .catch( err => {            
+          this.error(err);
+        })      
     }
-    else{
-      this.showLoading( cb =>{
+    else{      
         this.dataService.updateOrden(this.shareService.orden)
           .then( (res) =>{
-            this.loading.dismiss();
-            console.log(res);
             if(res!=200)
               this.showAlert(res.messages);
             else{
@@ -198,10 +203,8 @@ export class Tab1Page implements OnInit {
             }
           })
           .catch( err => {
-            this.loading.dismiss()            
             this.error(err);
           })
-      });
     }
 
   }  

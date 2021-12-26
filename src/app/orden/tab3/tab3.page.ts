@@ -31,7 +31,7 @@ export class Tab3Page implements OnInit {
     private dataService: DataService,
     private alert: AlertController,
     public shareService: SharingOrdenService,
-    private util: Utils,
+    public util: Utils,
     private modal: ModalController,
     private toast: ToastController,
     private events: EventsService
@@ -74,23 +74,21 @@ export class Tab3Page implements OnInit {
     
     this.shareService.setLastTab(this.orden);
 
-    this.showLoading( cb =>{
-      this.dataService.updateOrden(this.shareService.orden)
-        .then( (res) =>{          
-          this.loading.dismiss();
-          if(res!=200)
-            this.showAlert(res);
-          else{
-            this.showToast('Guardado correctamente');              
-            this.events.publish('orden:reload', {})
-            this.router.navigateByUrl('/ordenes', {replaceUrl : true});
-          }
-        })
-        .catch( err => {          
-          this.loading.dismiss()
-          this.error(err);
-        })
-    });
+    
+    this.dataService.updateOrden(this.shareService.orden)
+      .then( (res) =>{          
+        if(res!=200)
+          this.showAlert(res);
+        else{
+          this.showToast('Guardado correctamente');              
+          this.events.publish('orden:reload', {})
+          this.router.navigateByUrl('/ordenes', {replaceUrl : true});
+        }
+      })
+      .catch( err => {          
+        this.error(err);
+      })
+    
   }
 
   /****************Utilidades********************/

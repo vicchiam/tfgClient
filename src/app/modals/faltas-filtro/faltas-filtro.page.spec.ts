@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { FaltasFiltroPage } from './faltas-filtro.page';
 
+/*
 describe('FaltasFiltroPage', () => {
   let component: FaltasFiltroPage;
   let fixture: ComponentFixture<FaltasFiltroPage>;
@@ -22,3 +23,4 @@ describe('FaltasFiltroPage', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

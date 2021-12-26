@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
   })
 export class Utils{
+    public ADMINISTRADOR: number = 1;
+    public OPERARIO: number = 2;
+    public TECNICO: number = 3;
+
     public PENDIENTE: number = 0;
     public INICIADA: number = 1;
     public FINALIZADA: number = 2;

@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { InfoPage } from './info.page';
 
+/*
 describe('InfoPage', () => {
   let component: InfoPage;
   let fixture: ComponentFixture<InfoPage>;
@@ -22,3 +23,4 @@ describe('InfoPage', () => {
     expect(component).toBeTruthy();
   });
 });
+*/
